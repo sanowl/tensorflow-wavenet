@@ -1,12 +1,12 @@
 import fnmatch
 import os
-import random
 import re
 import threading
 
 import librosa
 import numpy as np
 import tensorflow as tf
+import secrets
 
 FILE_PATTERN = r'p([0-9]+)_([0-9]+)\.wav'
 
@@ -28,7 +28,7 @@ def get_category_cardinality(files):
 
 def randomize_files(files):
     for file in files:
-        file_index = random.randint(0, (len(files) - 1))
+        file_index = secrets.SystemRandom().randint(0, (len(files) - 1))
         yield files[file_index]
 
 
