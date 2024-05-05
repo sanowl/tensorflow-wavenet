@@ -11,6 +11,7 @@ import numpy as np
 import tensorflow as tf
 
 from wavenet import WaveNetModel, mu_law_decode, mu_law_encode, audio_reader
+import math
 
 SAMPLES = 16000
 TEMPERATURE = 1.0
@@ -231,7 +232,7 @@ def main():
 
         # Prediction distribution at temperature=1.0 should be unchanged after
         # scaling.
-        if args.temperature == 1.0:
+        if math.isclose(args.temperature, 1.0, rel_tol=1e-09, abs_tol=0.0):
             np.testing.assert_allclose(
                     prediction, scaled_prediction, atol=1e-5,
                     err_msg='Prediction scaling at temperature=1.0 '
